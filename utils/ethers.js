@@ -20,8 +20,10 @@ const getProvider = (network) => {
     }
 };
 
-const getBalance = async (address, provider) => {
+const getBalance = async (address, network) => {
     try {
+        const provider = getProvider(network);
+        if (provider.code === 0) return provider;
         const balance = await provider.getBalance(address);
         return ethers.utils.formatEther(balance);
     } catch (error) {
